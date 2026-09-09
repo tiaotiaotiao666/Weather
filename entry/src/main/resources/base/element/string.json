@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "WeatherApp"
+    },
+    {
+      "name": "internet_permission_reason",
+      "value": "用于获取天气数据"
+    },
+    {
+      "name": "network_info_permission_reason",
+      "value": "用于检测网络连接状态"
+    },
+    {
+      "name": "location_permission_reason",
+      "value": "用于获取您当前位置的天气信息"
+    }
+  ]
+}
