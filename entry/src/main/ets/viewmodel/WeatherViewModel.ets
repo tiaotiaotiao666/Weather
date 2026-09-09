@@ -12,6 +12,18 @@ export class WeatherViewModel {
   @Trace loading: boolean = false
   @Trace errorMsg: string = ''
 
+  private async fetchAllWeather(context: common.UIAbilityContext): Promise<void>{
+    let location = await LocationService.getCurrentLocation()
+    let longitude = location.longitude
+    let latitude = location.latitude
+    let city = await AmapService.reverseGeocode(latitude, longitude)
+    let weather = await QWeatherService.fetchWeatherNow(longitude.toString(), latitude.toString())
+    let daily = await QWeatherService.fetchWeather7d(longitude.toString(), latitude.toString())
+    this.currentCity = city
+    this.currentWeather = weather
+    this.dailyList = daily
+  }
+
   async loadWeather(context: common.UIAbilityContext): Promise<void> {
     try {
       this.loading = true
@@ -21,19 +33,20 @@ export class WeatherViewModel {
         this.errorMsg = '需要位置权限才能获取天气'
         return
       }
-      let location = await LocationService.getCurrentLocation()
-      let longitude = location.longitude
-      let latitude = location.latitude
-      let city = await AmapService.reverseGeocode(latitude, longitude)
-      let weather = await QWeatherService.fetchWeatherNow(longitude.toString(), latitude.toString())
-      this.currentCity = city
-      this.currentWeather = weather
-      let daily = await QWeatherService.fetchWeather7d(longitude.toString(), latitude.toString())
-      this.dailyList = daily
+      await this.fetchAllWeather(context)
     } catch (err){
       this.errorMsg = '获取天气失败：' + JSON.stringify(err)
     } finally {
       this.loading = false
     }
   }
+
+  async refreshWeather(context: common.UIAbilityContext): Promise<void> {
+    try{
+      await this.fetchAllWeather(context)
+    } catch (err){
+
+    }
+  }
 }
+
