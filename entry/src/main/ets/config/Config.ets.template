@@ -1,0 +1,5 @@
+export class Config{
+  static readonly AMAP_KEY: string = '在这里填你的高德Web服务Key'
+  static readonly QWEATHER_KEY: string = '在这里填你的和风Key'
+  static readonly QWEATHER_HOST: string = '在这里填你的和风专属API Host'
+}

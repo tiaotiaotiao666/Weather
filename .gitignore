@@ -11,3 +11,4 @@
 **/.test
 /.appanalyzer
 /.cache
+entry/src/main/ets/config/Config.ets
